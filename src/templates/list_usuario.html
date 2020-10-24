@@ -1,0 +1,27 @@
+{% block list_usuario %}
+      <div class="container">
+         <div class="col-md-12">
+            <br><br>
+            <h1 class="titulo">Tabla de usuarios.</h1>
+            <hr>
+            <table border = 1 class="table table-striped">
+               <thead>
+				  <td>id</td>
+                  <td>email</td>
+                  <td>password</td>
+                  <td>rol</td>
+               </thead>
+
+               {% for row in rows %}
+                  <tr>
+					      <td>{{row["id"]}}</td>
+                     <td>{{row["email"]}}</td>
+                     <td> {{ row["password"]}}</td>
+                     <td>{{row['rol']}}</td>
+                  </tr>
+               {% endfor %}
+            </table>
+      </div>
+   </div>
+
+{% endblock %}

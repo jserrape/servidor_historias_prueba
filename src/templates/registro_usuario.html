@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="col-md-12">
+      <br><br><br><br>
+      <h1 class="titulo">Nuevo Usuario</h1>
+      <hr>
+
+      <form name="nuevo_user_form" id="nuevo_user_form" action="/rest/usuario" method="POST" enctype="multipart/form-data">
+         <div class="form-group">
+            <label for="id">Email</label>
+            <input name="email" type="text" class="form-control" value="" autocomplete="off" placeholder="" required/>
+         </div>
+         <div class="form-group">
+            <label for="id">Password</label>
+            <input name="password" type="text" class="form-control" value="" autocomplete="off" placeholder="" required/>
+         </div>
+         <div class="form-group">
+            <label for="id">Rol</label>
+            <select name="rol" class="form-control" id="sel1">
+               <option value=1>Admin</option>
+               <option value=0>Standar user</option>
+             </select>
+         </div>
+
+         <br>
+
+         <input value="Crear usuario" type="submit" class="btn btn-primary" id="btn_add_user" autocomplete="off"/>
+      </form>
+   </div>
+</div>
+
+{% include "list_usuario.html" %}
+
+</body>
+</html>
+{% endblock %}
