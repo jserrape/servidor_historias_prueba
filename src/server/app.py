@@ -22,7 +22,7 @@ def users():
     print(rows)
     return render_template("registro_usuario.html",rows = rows)
 
-@app.route('/rest/usuario', methods=['POST'])
+@app.route('/rest/usuario', methods=['GET','POST'])
 def POST_user():
     print('Peticion a /rest/usuario')
     #Insert user
