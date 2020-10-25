@@ -25,7 +25,6 @@ def users():
 @app.route('/rest/usuario', methods=['GET','POST'])
 def POST_user():
     print('Peticion a /rest/usuario')
-    print(request.method)
  
     print('------------------------')
     #Insert user
@@ -33,8 +32,8 @@ def POST_user():
     password = request.form["password"]
     rol = request.form["rol"]
 
-    print(request.headers)
-    print(request.__dict__)
+    #print(request.headers)
+    #print(request.__dict__)
 
     print('-----')
     print(email)
