@@ -29,6 +29,16 @@ def POST_user():
     email = request.form["email"]
     password = request.form["password"]
     rol = request.form["rol"]
+
+    print(request.headers)
+    print(request.__dict__)
+
+    print('-----')
+    print(email)
+    print(password)
+    print(rol)
+    print('------')
+
     with sql.connect("database.db") as con:
         try:
             cur = con.cursor()
