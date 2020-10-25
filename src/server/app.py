@@ -33,7 +33,23 @@ def POST_user():
         cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
         con.commit()
     con.close()
-    return redirect("/usuarios", code=302)
+    return redirect("/usuarios", code=201)
+
+@app.route('/phone/usuario', methods=['POST'])
+def POST_user_phone():
+    print(POST_user_phone)
+    print(request)
+    print(request).form
+    #Insert user
+    email = request.form["email"]
+    password = request.form["password"]
+    rol = request.form["rol"]
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
+        con.commit()
+    con.close()
+    return redirect("/usuarios", code=201)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
