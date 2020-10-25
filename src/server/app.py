@@ -26,6 +26,8 @@ def users():
 def POST_user():
     print('Peticion a /rest/usuario')
     print(request.method)
+    print(request.__dict__)
+    print(request.headers)
     print('------------------------')
     #Insert user
     email = request.form["email"]
