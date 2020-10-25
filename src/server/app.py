@@ -29,24 +29,14 @@ def POST_user():
     password = request.form["password"]
     rol = request.form["rol"]
     with sql.connect("database.db") as con:
-        cur = con.cursor()
-        cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
-        con.commit()
-    con.close()
-    return redirect("/usuarios", code=201)
-
-@app.route('/phone/usuario', methods=['POST'])
-def POST_user_phone():
-    print('POST_user_phone')
-
-    #Insert user
-    email = request.form["email"]
-    password = request.form["password"]
-
-    with sql.connect("database.db") as con:
-        cur = con.cursor()
-        cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,0) )
-        con.commit()
+        try:
+            cur = con.cursor()
+            cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
+            con.commit()
+        except:
+            print("Ya existe un usuario con ese email")
+            con.close()
+            return redirect("/usuarios", code=400)
     con.close()
     return redirect("/usuarios", code=201)
 
