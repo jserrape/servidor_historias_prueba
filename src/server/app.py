@@ -25,6 +25,8 @@ def users():
 @app.route('/rest/usuario', methods=['GET','POST'])
 def POST_user():
     print('Peticion a /rest/usuario')
+    print(request.method)
+    print('------------------------')
     #Insert user
     email = request.form["email"]
     password = request.form["password"]
