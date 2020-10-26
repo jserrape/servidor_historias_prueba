@@ -47,7 +47,18 @@ def POST_user():
             con.close()
             respons.status_code = 400
     con.close()
+    return respons
 
+@app.route('/rest/usuario/change_password', methods=['POST'])
+def change_password_user():
+    print('Peticion a /rest/usuario/change_password')
+    print(request)
+    print(request.values)
+    print(request.get_json())
+
+    respons = {}
+    respons['ruta'] = '/rest/usuario/change_password'
+    respons = jsonify(respons)
     return respons
 
 if __name__ == '__main__':

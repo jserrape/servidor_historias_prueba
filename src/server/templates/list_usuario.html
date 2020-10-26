@@ -9,6 +9,7 @@
                   <td>email</td>
                   <td>password</td>
                   <td>rol</td>
+                  <td>urlpassword</td>
                </thead>
 
                {% for row in rows %}
@@ -16,6 +17,7 @@
                      <td>{{row["email"]}}</td>
                      <td> {{ row["password"]}}</td>
                      <td>{{row['rol']}}</td>
+                     <td>{{row['urlpassword']}}</td>
                   </tr>
                {% endfor %}
             </table>

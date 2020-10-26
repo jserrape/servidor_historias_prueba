@@ -19,7 +19,7 @@ print("Opened database successfully")
 # drop tables
 conn.execute('DROP TABLE IF EXISTS user')
 # create tables
-conn.execute('CREATE TABLE IF NOT EXISTS user (email TEXT PRIMARY KEY, password TEXT, rol INTEGER)')
+conn.execute('CREATE TABLE IF NOT EXISTS user (email TEXT PRIMARY KEY, password TEXT, rol INTEGER, urlpassword TEXT)')
 print("Table created successfully")
 conn.close()
 
