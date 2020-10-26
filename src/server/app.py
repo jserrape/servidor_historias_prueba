@@ -29,7 +29,7 @@ def POST_user():
     print('------------------------')
     print(request.get_json())
     value = request.get_json()
-    print(request_json.get('title'))
+    print(value.get('title'))
 
     print('------------------------')
     print(request.args)
