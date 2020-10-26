@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request, Response
 from declaracionVariables import *
 
+import string
+
 import io, time, os, json, re
 
 
@@ -59,7 +61,7 @@ def change_password_user():
     with sql.connect("database.db") as con:
         try:            
             cur = con.cursor()
-            cur.execute("UPDATE user SET urlpassword = ? WHERE email = ?",('aaaaaaaaaaa',email) )
+            cur.execute("UPDATE user SET urlpassword = ? WHERE email = ?",(''.join([choice(string.ascii_letters) for i in range(10)]),email) )
             con.commit()
             respons.status_code = 201
         except:
