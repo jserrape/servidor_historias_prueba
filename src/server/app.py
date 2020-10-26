@@ -29,6 +29,8 @@ def POST_user():
     print('------------------------')
     print(request.data)
     print(request.data.title)
+    print(request.data.values)
+    print(request.data.values.title)
     print('------------------------')
     print(request.args)
     print('------------------------')
