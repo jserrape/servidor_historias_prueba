@@ -59,7 +59,7 @@ def change_password_user():
     with sql.connect("database.db") as con:
         try:            
             cur = con.cursor()
-            cur.execute("UPDATE user SET urlpassword='aaaaaaaaaaa' WHERE email = ?",(email) )
+            cur.execute("UPDATE user SET urlpassword = ? WHERE email = ?",('aaaaaaaaaaa',email) )
             con.commit()
             respons.status_code = 201
         except:
