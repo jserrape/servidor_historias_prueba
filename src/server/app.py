@@ -28,6 +28,7 @@ def POST_user():
     print(request.headers)
     print('------------------------')
     print(request.data)
+    print(request.data.title)
     print('------------------------')
     print(request.args)
     print('------------------------')
