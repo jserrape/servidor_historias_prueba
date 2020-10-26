@@ -25,6 +25,9 @@ def users():
 @app.route('/rest/usuario', methods=['POST'])
 def POST_user():
     print('Peticion a /rest/usuario')
+    respons = {}
+    respons['ruta'] = '/rest/usuario'
+    respons = jsonify(respons)
     with sql.connect("database.db") as con:
         try:
             value = request.get_json()
@@ -38,12 +41,14 @@ def POST_user():
             cur = con.cursor()
             cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
             con.commit()
+            respons.status_code = 201
         except:
             print("Ya existe un usuario con ese email")
             con.close()
-            return redirect("/usuarios", code=400)
+            respons.status_code = 400
     con.close()
-    return 'ok'
+
+    return respons
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
