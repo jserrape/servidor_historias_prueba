@@ -55,7 +55,7 @@ def change_password_user():
     email = request.get_json()
     respons = {}
     respons['ruta'] = '/rest/usuario/change_password'
-
+    respons = jsonify(respons)
     with sql.connect("database.db") as con:
         try:            
             cur = con.cursor()
@@ -67,9 +67,6 @@ def change_password_user():
             con.close()
             respons.status_code = 400
     con.close()
-
-
-    respons = jsonify(respons)
     return respons
 
 if __name__ == '__main__':
