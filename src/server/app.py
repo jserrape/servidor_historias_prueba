@@ -27,6 +27,12 @@ def POST_user():
     print('Peticion a /rest/usuario')
     print(request.headers)
     print('------------------------')
+    print(request.data)
+    print('------------------------')
+    print(request.args)
+    print('------------------------')
+    print(request.form)
+    print('------------------------')
     return 'ok'
 
 if __name__ == '__main__':
