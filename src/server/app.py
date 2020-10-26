@@ -52,12 +52,23 @@ def POST_user():
 @app.route('/rest/usuario/change_password', methods=['POST'])
 def change_password_user():
     print('Peticion a /rest/usuario/change_password')
-    print(request)
-    print(request.values)
-    print(request.get_json())
-
+    email = request.get_json()
     respons = {}
     respons['ruta'] = '/rest/usuario/change_password'
+
+    with sql.connect("database.db") as con:
+        try:            
+            cur = con.cursor()
+            cur.execute("UPDATE user SET urlpassword='aaaaaaaaaaa' WHERE email = ?",(email) )
+            con.commit()
+            respons.status_code = 201
+        except:
+            print("Ya existe un usuario con ese email")
+            con.close()
+            respons.status_code = 400
+    con.close()
+
+
     respons = jsonify(respons)
     return respons
 
