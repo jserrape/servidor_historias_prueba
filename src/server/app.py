@@ -25,17 +25,24 @@ def users():
 @app.route('/rest/usuario', methods=['POST'])
 def POST_user():
     print('Peticion a /rest/usuario')
-    print(request.headers)
-    print('------------------------')
-    print(request.get_json())
-    value = request.get_json()
-    print(value.get('title'))
-
-    print('------------------------')
-    print(request.args)
-    print('------------------------')
-    print(request.form)
-    print('------------------------')
+    with sql.connect("database.db") as con:
+        try:
+            value = request.get_json()
+            print('--------')
+            print(value)
+            print('--------')
+            
+            email = value.get('email')
+            password = value.get('password')
+            rol = value.get('rol')
+            cur = con.cursor()
+            cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
+            con.commit()
+        except:
+            print("Ya existe un usuario con ese email")
+            con.close()
+            return redirect("/usuarios", code=400)
+    con.close()
     return 'ok'
 
 if __name__ == '__main__':
