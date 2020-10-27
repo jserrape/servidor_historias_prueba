@@ -125,7 +125,8 @@ def login_user():
     cur = con.cursor()
     cur.execute("SELECT COUNT(*) FROM user WHERE email = ? AND password = ?", (email,password))
     result=cur.fetchone()
-    print(result)
+    number_of_rows=result[0]
+    print(number_of_rows)
 
     return respons
 
