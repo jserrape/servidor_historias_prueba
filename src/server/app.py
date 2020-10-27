@@ -123,9 +123,9 @@ def login_user():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email,password))
-    rows = cur.fetchall()
-    print(rows)
+    cur.execute("SELECT COUNT(*) FROM user WHERE email = ? AND password = ?", (email,password))
+    result=cur.fetchone()
+    print(result)
 
     return respons
 
