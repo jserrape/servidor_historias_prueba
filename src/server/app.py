@@ -126,8 +126,10 @@ def login_user():
     cur.execute("SELECT COUNT(*) FROM user WHERE email = ? AND password = ?", (email,password))
     result=cur.fetchone()
     number_of_rows=result[0]
-    print(number_of_rows)
-
+    if number_of_rows == 1:
+        respons.status_code = 201
+    else:
+        respons.status_code = 400
     return respons
 
 if __name__ == '__main__':
