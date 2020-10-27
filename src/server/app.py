@@ -108,6 +108,27 @@ def change_password_user():
     con.close()
     return respons
 
+@app.route('/rest/usuario/login', methods=['POST'])
+def login_user():
+    print('Peticion a /rest/usuario/login')
+    email = request.get_json()
+    respons = {}
+    respons['ruta'] = '/rest/usuario/login'
+    respons = jsonify(respons)
+    value = request.get_json()
+            
+    email = value.get('email')
+    password = value.get('password')
+
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email,password))
+    rows = cur.fetchall()
+    print(rows)
+
+    return respons
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
     app.run(host='0.0.0.0', port=port,debug=DEBUG)
