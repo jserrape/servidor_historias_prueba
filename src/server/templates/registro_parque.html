@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="col-md-12">
+      <br><br><br><br>
+      <h1 class="titulo">Nuevo Parque</h1>
+      <hr>
+
+      <form name="nuevo_parque_form" id="nuevo_parque_form" action="/rest/parque/nuevo" method="POST" enctype="multipart/form-data">
+         <div class="form-group">
+            <label for="id">Nombre de la historia</label>
+            <input name="nombre" type="text" class="form-control" value="" autocomplete="off" placeholder="Introduzca nombre de la historia" />
+         </div>
+         <div class="form-group">
+            <label for="id">Descripción de la historia</label>
+            <input name="descripcion" type="text" class="form-control" value="" autocomplete="off" placeholder="Introduzca la descripción de la historia" />
+         </div>
+         <div class="form-group">
+            <label for="id">Imagen</label>
+            <input name="imagen_historia" type="file" accept=".jpg,.png" class="form-control" value="" autocomplete="off" placeholder="Añada imagen de título" />
+         </div>
+         <div class="form-group">
+            <label for="id">Latitud</label>
+            <input name="latitud" type="number" step="any" class="form-control" value="37.1707751" placeholder="Introduzca la latitud inicial" />
+         </div>
+         <div class="form-group">
+            <label for="id">Longitud</label>
+            <input name="longitud" type="number" step="any" class="form-control" value="-3.607208" placeholder="Introduzca la longitud inicial" />
+         </div>
+         
+         <br>
+
+         <input value="Crear parque" type="submit" class="btn btn-primary" id="btn_add_parqu" autocomplete="off"/>
+      </form>
+   </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -23,7 +23,46 @@ def users():
     cur.execute("select * from user")
     rows = cur.fetchall()
     print(rows)
-    return render_template("registro_usuario.html",rows = rows)
+    return render_template("list_usuario.html",rows = rows)
+
+@app.route('/nuevo_parque')
+def new_parque():
+    return render_template("registro_parque.html")
+
+
+@app.route('/lista_parques')
+def list_parks():
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select * from park")
+    rows = cur.fetchall()
+    print(rows)
+    return render_template("list_park.html",rows = rows)
+
+
+
+
+@app.route('/rest/parque/nuevo', methods=['POST'])
+def POST_parqu():
+    print('Peticion a /rest/parque/nuevo')
+    respons = {}
+    respons['ruta'] = '/rest/parque/nuevo'
+    respons = jsonify(respons)
+
+    park_dict = request.form.to_dict()
+    print(park_dict)
+    nombre = park_dict['nombre']
+    descripcion = park_dict['descripcion']
+    latitud = park_dict['latitud']
+    longitud = park_dict['longitud']
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO park (nombre, descripcion, latitud, longitud) VALUES (?,?,?,?)",(nombre,descripcion,latitud,longitud) )
+        con.commit()
+        respons.status_code = 201
+    con.close()
+    return redirect("/nuevo_parque", code=201)
 
 @app.route('/rest/usuario', methods=['POST'])
 def POST_user():
@@ -34,9 +73,6 @@ def POST_user():
     with sql.connect("database.db") as con:
         try:
             value = request.get_json()
-            print('--------')
-            print(value)
-            print('--------')
             
             email = value.get('email')
             password = value.get('password')
