@@ -130,7 +130,7 @@ def login_user():
     print("")
     print("")
 
-    rowDict = dict(itertools.izip(rows[0].keys(), rows[0]))
+    rowDict = dict(zip([c[0] for c in cur.description], rows[0]))
     print(rowDict)
 
 
