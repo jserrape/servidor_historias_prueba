@@ -123,12 +123,17 @@ def login_user():
     cur.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email,password))
     rows = cur.fetchall()
 
-    print(rows)
-    print(len(rows))
+    for row in rows:
+        print(row)
 
-    result=cur.fetchone()
-    number_of_rows=result[0]
-    if number_of_rows == 1:
+    print("")
+    print("")
+    print("")
+
+    print(rows[0])
+
+
+    if len(rows) == 1:
         respons.status_code = 201
     else:
         respons.status_code = 400
