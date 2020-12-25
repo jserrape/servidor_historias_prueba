@@ -120,13 +120,15 @@ def login_user():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("SELECT COUNT(*) FROM user WHERE email = ? AND password = ?", (email,password))
+    cur.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email,password))
+    rows = cur.fetchall()
+
+    print(rows)
+    print(len(rows))
+
     result=cur.fetchone()
     number_of_rows=result[0]
-    use = cur.fetchall()
     if number_of_rows == 1:
-        print(use)
-        print(number_of_rows)
         respons.status_code = 201
     else:
         respons.status_code = 400
