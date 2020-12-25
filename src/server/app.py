@@ -40,9 +40,6 @@ def list_parks():
     print(rows)
     return render_template("list_park.html",rows = rows)
 
-
-
-
 @app.route('/rest/parque/nuevo', methods=['POST'])
 def POST_parqu():
     print('Peticion a /rest/parque/nuevo')
@@ -127,6 +124,8 @@ def login_user():
     result=cur.fetchone()
     number_of_rows=result[0]
     if number_of_rows == 1:
+        print(result[0])
+        print(result)
         respons.status_code = 201
     else:
         respons.status_code = 400
