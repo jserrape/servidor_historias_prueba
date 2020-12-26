@@ -21,7 +21,7 @@ conn.execute('DROP TABLE IF EXISTS user')
 conn.execute('DROP TABLE IF EXISTS park')
 
 # create tables
-conn.execute('CREATE TABLE IF NOT EXISTS user (email TEXT PRIMARY KEY, password TEXT, rol INTEGER, urlpassword TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS user (email TEXT PRIMARY KEY, nombre TEXT, password TEXT, rol INTEGER, urlpassword TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS park (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, descripcion TEXT, latitud TEXT, longitud TEXT)')
 print("Table created successfully")
 conn.close()
@@ -29,7 +29,7 @@ conn.close()
 # insert test data
 with sql.connect("database.db") as con:
     cur = con.cursor()
-    cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",('a@a.com','1234','0') )
+    cur.execute("INSERT INTO user (email, nombre, password, rol) VALUES (?,?,?,?)",('a@a.com','Juan Carlos Serrano','1234','0') )
 
     cur.execute("INSERT INTO park (nombre, descripcion, latitud, longitud) VALUES (?,?,?,?)",('Rotonda de la Alcantarilla','Soy la descripcion','37.762261','-3.788986') )
     cur.execute("INSERT INTO park (nombre, descripcion, latitud, longitud) VALUES (?,?,?,?)",('Gámez Mellado "Aves y Huevos"','Soy la descripcion','37.76013131070424','-3.791822653210403') )

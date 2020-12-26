@@ -5,7 +5,7 @@ __pycache__/
 qr/
 
 # Ignoro la BBDD
-database.db
+*.db
 
 # C extensions
 *.so

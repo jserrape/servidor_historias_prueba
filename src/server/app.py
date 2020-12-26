@@ -72,10 +72,11 @@ def POST_user():
             value = request.get_json()
             
             email = value.get('email')
+            nombre = value.get('nombre')
             password = value.get('password')
             rol = value.get('rol')
             cur = con.cursor()
-            cur.execute("INSERT INTO user (email, password, rol) VALUES (?,?,?)",(email,password,rol) )
+            cur.execute("INSERT INTO user (email, nombre,password, rol) VALUES (?,?,?,?)",(email,nombre,password,rol) )
             con.commit()
             respons.status_code = 201
         except:
@@ -105,13 +106,37 @@ def change_password_user():
     con.close()
     return respons
 
+@app.route('/rest/usuario/change_user_name', methods=['POST'])
+def change_user_name():
+    print('Peticion a /rest/usuario/change_user_name')
+    req = request.get_json()
+    email = req['email']
+    name = req['nombre']
+    respons = {}
+    respons['ruta'] = '/rest/usuario/change_user_name'
+    respons = jsonify(respons)
+
+    with sql.connect("database.db") as con:
+        try:
+            cur = con.cursor()
+            cur.execute("UPDATE user SET nombre = ? WHERE email = ?",(name,email) )
+            con.commit()
+            respons.status_code = 201
+        except:
+            print("Ha ocurrido un error al actualizar el nombre del usuario")
+            con.close()
+            respons.status_code = 400
+    con.close()
+
+    return respons
+
 @app.route('/rest/usuario/login', methods=['POST'])
 def login_user():
     print('Peticion a /rest/usuario/login')
     email = request.get_json()
     respons = {}
     respons['ruta'] = '/rest/usuario/login'
-    respons = jsonify(respons)
+    
     value = request.get_json()
             
     email = value.get('email')
@@ -120,23 +145,18 @@ def login_user():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email,password))
+    cur.execute("SELECT email,nombre FROM user WHERE email = ? AND password = ?", (email,password))
     rows = cur.fetchall()
 
-    for row in rows:
-        print(row)
-
-    print("")
-    print("")
-    print("")
-
     rowDict = dict(zip([c[0] for c in cur.description], rows[0]))
-    print(rowDict)
 
 
     if len(rows) == 1:
+        respons['user'] = json.dumps(rowDict)
+        respons = jsonify(respons)
         respons.status_code = 201
     else:
+        respons = jsonify(respons)
         respons.status_code = 400
     return respons
 
