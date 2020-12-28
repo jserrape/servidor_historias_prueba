@@ -130,6 +130,31 @@ def change_user_name():
 
     return respons
 
+@app.route('/rest/usuario/change_user_email', methods=['POST'])
+def change_user_email():
+    print('Peticion a /rest/usuario/change_user_email')
+    req = request.get_json()
+    print(req);
+    initEmail = req['initEmail']
+    finalEmail = req['finalEmail']
+    respons = {}
+    respons['ruta'] = '/rest/usuario/change_user_email'
+    respons = jsonify(respons)
+
+    with sql.connect("database.db") as con:
+        try:
+            cur = con.cursor()
+            cur.execute("UPDATE user SET email = ? WHERE email = ?",(finalEmail,initEmail))
+            con.commit()
+            respons.status_code = 201
+        except:
+            print("Ha ocurrido un error al actualizar el email del usuario")
+            con.close()
+            respons.status_code = 400
+    con.close()
+
+    return respons
+
 @app.route('/rest/usuario/login', methods=['POST'])
 def login_user():
     print('Peticion a /rest/usuario/login')
